@@ -2,12 +2,11 @@ package org.example.repositories;
 
 import org.example.models.Gate;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 public class GateRepository {
-    private List<Gate> gates;
+    private Map<Integer,Gate> gates=new TreeMap<>();
+
     private static GateRepository instance;
     private GateRepository(){}
     public static GateRepository getInstance() {
@@ -16,22 +15,15 @@ public class GateRepository {
         return instance;
     }
     public boolean save(Gate gate) {
-        if(gates == null) {
-            gates = new ArrayList<>();
+        if(gates.containsKey(gate.getId())){
+            return false;
         }
-        for(Gate g : gates) {
-            if(g.getId() == gate.getId()) {
-                return false;
-            }
-        }
-        gates.add(gate);
-        return true;
+        gates.put(gate.getId(), gate);
+        return  true;
     }
     public Optional<Gate> findGateById(int gateId){
-        for (Gate gate : gates) {
-            if(gate.getId() == gateId){
-                return Optional.of(gate);
-            }
+        if(gates.containsKey(gateId)){
+            return Optional.of(gates.get(gateId));
         }
         return Optional.empty();
     }

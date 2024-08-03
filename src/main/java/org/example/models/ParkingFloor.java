@@ -2,11 +2,11 @@ package org.example.models;
 
 import java.util.List;
 
-public class ParkingFloors extends BaseModel {
+public class ParkingFloor extends BaseModel {
     private String floorNumber;
-    private List<ParkingSlots> parkingSlots;
+    private List<ParkingSlot> parkingSlots;
     private ParkingFloorStatus parkingFloorStatus;
-    private List<SupportedVehicleTypes> vehicleTypes;
+    private List<SupportedVehicleType> vehicleTypes;
 
     public String getFloorNumber() {
         return floorNumber;
@@ -16,11 +16,11 @@ public class ParkingFloors extends BaseModel {
         this.floorNumber = floorNumber;
     }
 
-    public List<ParkingSlots> getParkingSlots() {
+    public List<ParkingSlot> getParkingSlots() {
         return parkingSlots;
     }
 
-    public void setParkingSlots(List<ParkingSlots> parkingSlots) {
+    public void setParkingSlots(List<ParkingSlot> parkingSlots) {
         this.parkingSlots = parkingSlots;
     }
 
@@ -32,11 +32,11 @@ public class ParkingFloors extends BaseModel {
         this.parkingFloorStatus = parkingFloorStatus;
     }
 
-    public List<SupportedVehicleTypes> getVehicleTypes() {
+    public List<SupportedVehicleType> getVehicleTypes() {
         return vehicleTypes;
     }
 
-    public void setVehicleTypes(List<SupportedVehicleTypes> vehicleTypes) {
+    public void setVehicleTypes(List<SupportedVehicleType> vehicleTypes) {
         this.vehicleTypes = vehicleTypes;
     }
 }

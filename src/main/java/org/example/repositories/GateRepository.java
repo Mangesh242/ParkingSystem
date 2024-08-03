@@ -15,11 +15,17 @@ public class GateRepository {
             instance = new GateRepository();
         return instance;
     }
-    public void save(Gate gate) {
+    public boolean save(Gate gate) {
         if(gates == null) {
             gates = new ArrayList<>();
         }
+        for(Gate g : gates) {
+            if(g.getId() == gate.getId()) {
+                return false;
+            }
+        }
         gates.add(gate);
+        return true;
     }
     public Optional<Gate> findGateById(int gateId){
         for (Gate gate : gates) {

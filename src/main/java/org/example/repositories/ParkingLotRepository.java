@@ -1,18 +1,19 @@
 package org.example.repositories;
 
-import org.example.models.ParkingLots;
-import org.example.models.ParkingSlots;
+import org.example.models.Gate;
+import org.example.models.ParkingLot;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 public class ParkingLotRepository {
     private static ParkingLotRepository instance;
-    private List<ParkingLots> parkingLots;
+    private Map<Integer, ParkingLot> parkingLots;
+
 
     private ParkingLotRepository(){
-
+    }
+    public ParkingLot findParkingLotByGate(Gate gate){
+        return null;
     }
     public static ParkingLotRepository getInstance(){
         if(instance == null){
@@ -20,23 +21,21 @@ public class ParkingLotRepository {
         }
         return instance;
     }
-    private boolean save(ParkingLots parkingLot){
+    public boolean save(ParkingLot parkingLot){
         if(parkingLots == null){
-            parkingLots = new ArrayList<>();
+            parkingLots = new TreeMap<>();
         }
 
-        for(ParkingLots plot : parkingLots){
-            if(plot.getId() == parkingLot.getId()){
-                return false;
-            }
+        if(parkingLots.containsKey(parkingLot.getId())){
+            return false;
         }
-        parkingLots.add(parkingLot);
-
+        parkingLots.put(parkingLot.getId(),parkingLot);
+        return true;
     }
 
-    public Optional<ParkingLots> getParkingLotById(String id) {
-        Optional<ParkingLots> parkingLots = Optional.empty();
-        ParkingLots parkingLot;
+    public Optional<ParkingLot> getParkingLotById(String id) {
+        Optional<ParkingLot> parkingLots = Optional.empty();
+        ParkingLot parkingLot;
         return parkingLots;
     }
 }

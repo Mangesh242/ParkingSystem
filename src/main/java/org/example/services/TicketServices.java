@@ -15,17 +15,18 @@ public class TicketServices {
     private TicketRepository ticketRepository;
     private VehicleRepository vehicleRepository;
 
-    public TicketServices(GateRepository gateRepository, TicketRepository ticketRepository, VehicleRepository vehicleRepository) {
-        this.gateRepository=gateRepository;
+    public TicketServices(
+                         ) {
+        this.gateRepository=GateRepository.getInstance();
         this.ticketRepository=ticketRepository;
         this.vehicleRepository=vehicleRepository;
-
     }
+
     public Ticket issueTicket(int gateId,
                               String VehicleNumber,
                               String OwnerName,
                               VehicleType vehicleType) {
-    //To create object of gate we need what all params
+        //To create object of gate we need what all params
         //Properly create ticket object with require detail
         Ticket ticket = new Ticket();
         ticket.setEntryTime(new Date());
@@ -34,12 +35,10 @@ public class TicketServices {
         Optional<Gate> gateOptional = gateRepository.findGateById(gateId);
         if(gateOptional.isPresent()){
             gate=gateOptional.get();
-        }else{
+        } else {
             throw new IllegalArgumentException("Gate not found");
         }
         ticket.setGate(gate);
-
-
         return ticket;
         //Steps :
         //1.Assigning slot

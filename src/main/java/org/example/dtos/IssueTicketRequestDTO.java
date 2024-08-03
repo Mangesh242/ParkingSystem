@@ -1,6 +1,7 @@
 package org.example.dtos;
 
 import org.example.models.VehicleType;
+import org.example.repositories.GateRepository;
 
 public class IssueTicketRequestDTO {
     private int gateID;

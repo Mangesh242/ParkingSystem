@@ -3,7 +3,8 @@ package org.example.controllers;
 import org.example.dtos.IssueTicketRequestDTO;
 import org.example.dtos.IssueTicketResponseDTO;
 import org.example.dtos.ResponseStatus;
-import org.example.models.Ticket;
+import org.example.models.*;
+import org.example.repositories.GateRepository;
 import org.example.services.TicketServices;
 
 public class TicketController {
@@ -13,16 +14,24 @@ public class TicketController {
         return no+no2;
     }
 
+    public TicketController(TicketServices services){
+        this.ticketServices = services;
+    }
+
 
     public IssueTicketResponseDTO issueTicket(IssueTicketRequestDTO req){
         IssueTicketResponseDTO responseDTO = new IssueTicketResponseDTO();
         try {
+
+
+//            ticketServices.saveGate(gte);
             //Do validation of request object
             //As request object will have lot of objects so we do not pass whole request DTO object everywhere.
             Ticket ticket = ticketServices.issueTicket(req.getGateID(),
                     req.getVehicleNumber(),
                     req.getOwnerName(),
-                    req.getVehicleType());
+                    req.getVehicleType()
+                    );
 
             responseDTO.setTicketId(ticket.getId());
             responseDTO.setResponseStatus(ResponseStatus.SUCCESS);

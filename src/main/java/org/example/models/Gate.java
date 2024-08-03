@@ -37,4 +37,6 @@ public class Gate extends BaseModel {
  public void setGateStatus(GateStatus gateStatus) {
   this.gateStatus = gateStatus;
  }
+
+
 }

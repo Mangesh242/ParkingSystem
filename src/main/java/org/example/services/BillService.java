@@ -88,25 +88,10 @@ public class BillService {
         Payment payment=new Payment();
         payment.setAmount(10f);
 
-        billDivide=price - 10f;
-        payment.setPaymentMode(PaymentMode.CASH);
-
-
-        Payment payment1=new Payment();
-        payment1.setAmount(billDivide);
-        payment1.setPaymentMode(PaymentMode.UPI);
-
-
-        payments.add(payment);
-        payments.add(payment1);
-        bill.setPayment(payments);
 
         //save the bill to repository
         this.billRepository.saveBill(bill);
-        payment.setBill(bill);
-        payment1.setBill(bill);
-        paymentRepository.savePayment(payment);
-        paymentRepository.savePayment(payment1);
+
 
 
         return bill;

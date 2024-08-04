@@ -1,4 +1,4 @@
-package org.example.strategies;
+package org.example.strategies.slotAssignment;
 
 import org.example.models.*;
 

@@ -4,8 +4,8 @@ import org.example.models.*;
 import org.example.repositories.GateRepository;
 import org.example.repositories.TicketRepository;
 import org.example.repositories.VehicleRepository;
-import org.example.strategies.SlotAssignMentStrategy;
-import org.example.strategies.SlotAssignmentStrategyFactory;
+import org.example.strategies.slotAssignment.SlotAssignMentStrategy;
+import org.example.strategies.slotAssignment.SlotAssignmentStrategyFactory;
 
 import java.util.Date;
 import java.util.Optional;

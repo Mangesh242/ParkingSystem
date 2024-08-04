@@ -19,12 +19,13 @@ public class PaymentRepository {
         }
         return instance;
     }
-    public boolean savePayment(Payment payment){
+    public Integer savePayment(Payment payment){
         id++;
         payment.setId(id);
         paymentRepo.put(id,payment);
-        return false;
+        return id;
     }
+
     public List<Payment> getPaymentsByBillId(Integer billId){
         List<Payment> payments=new ArrayList<>();
         for(Integer key:paymentRepo.keySet())

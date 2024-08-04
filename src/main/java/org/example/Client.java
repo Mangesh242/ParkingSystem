@@ -13,6 +13,7 @@ import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Scanner;
 
 public class Client
 {
@@ -94,11 +95,14 @@ public class Client
 
 
         IssueTicketResponseDTO responseDTOTicket=ticketCtrl.issueTicket(req);
+        System.out.println("*** Akash Parking System ***");
         if(responseDTOTicket.getResponseStatus().equals(ResponseStatus.SUCCESS)){
+            System.out.println("-------------------------------------");
             System.out.println("Ticket : ");
             System.out.println("Ticket Id: "+responseDTOTicket.getTicketId());
             System.out.println("Entry Time: "+responseDTOTicket.getEntryTime());
             System.out.println("Parking Slot: "+responseDTOTicket.getSlotNumber());
+            System.out.println("-------------------------------------");
 
         }else{
             System.out.println("Not able to create Ticket :"+responseDTOTicket.getFailureMessage());
@@ -117,14 +121,29 @@ public class Client
             System.out.println("1.Gate No : " + responseDTO.getGateNumber());
             System.out.println("2.Amount : " + responseDTO.getAmount());
             System.out.println("3.Vehicle Number : " + responseDTO.getVehicleNumber());
-
-            System.out.println("Amount received from customer is : ");
-            System.out.println("-------------------------------------");
+            System.out.println("********* Payment ***********");
+            //User will have to make payment,
+            //He will ask i would like to pay in 2 modes, 1.Cash : 10Rs 2.UPI :10Rs
+            Float billAmount=responseDTO.getAmount();
+            List<PaymentResponseDTO> paymentsDTO=new ArrayList<>();
             PaymentController paymentController=new PaymentController();
             PaymentRequestDTO paymentRequestDTO=new PaymentRequestDTO();
             paymentRequestDTO.setBillId(responseDTO.getBill().getId());
+            paymentRequestDTO.setPaymentMode(PaymentMode.CASH);
+            paymentRequestDTO.setAmount(10f);
+            billAmount=billAmount-10f;
 
-            List<PaymentResponseDTO> paymentsDTO=paymentController.getPayments(paymentRequestDTO);
+            PaymentResponseDTO paymentResponse=paymentController.makePayment(paymentRequestDTO);
+            PaymentRequestDTO paymentRequestDTO1=new PaymentRequestDTO();
+            paymentRequestDTO1.setAmount(billAmount);
+            paymentRequestDTO1.setPaymentMode(PaymentMode.UPI);
+            paymentRequestDTO1.setBillId(responseDTO.getBill().getId());
+
+            paymentsDTO.add(paymentResponse);
+            paymentsDTO.add(paymentController.makePayment(paymentRequestDTO1));
+
+            System.out.println("Amount received from customer is : ");
+            System.out.println("-------------------------------------");
             for(PaymentResponseDTO payment:paymentsDTO){
                 System.out.println(payment.getPaymentMode()+" : "+payment.getAmount()+"/-");
             }

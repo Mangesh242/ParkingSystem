@@ -1,6 +1,6 @@
 package org.example.models;
 
-public enum PaymentModes {
+public enum PaymentMode {
     CASH,
     CARD,
     UPI

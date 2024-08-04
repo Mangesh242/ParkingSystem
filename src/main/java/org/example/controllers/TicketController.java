@@ -7,6 +7,8 @@ import org.example.models.*;
 import org.example.repositories.GateRepository;
 import org.example.services.TicketServices;
 
+import java.util.Optional;
+
 public class TicketController {
     private TicketServices ticketServices;
 
@@ -18,6 +20,9 @@ public class TicketController {
         this.ticketServices = services;
     }
 
+    public Optional<Ticket> getTicket(Integer id){
+        return ticketServices.getTicketById(id);
+    }
 
     public IssueTicketResponseDTO issueTicket(IssueTicketRequestDTO req){
         IssueTicketResponseDTO responseDTO = new IssueTicketResponseDTO();
@@ -35,6 +40,9 @@ public class TicketController {
 
             responseDTO.setTicketId(ticket.getId());
             responseDTO.setResponseStatus(ResponseStatus.SUCCESS);
+            responseDTO.setEntryTime(ticket.getEntryTime());
+            responseDTO.setSlotNumber(ticket.getParkingSlot().getSlotNumber());
+
         }
         catch (Exception e){
             responseDTO.setFailureMessage(e.getMessage());

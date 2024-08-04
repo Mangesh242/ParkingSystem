@@ -21,7 +21,9 @@ public class TicketServices {
         this.ticketRepository=TicketRepository.getInstance();
         this.vehicleRepository=VehicleRepository.getInstance();
     }
-
+    public Optional<Ticket> getTicketById(int id){
+        return ticketRepository.getTicket(id);
+    }
     public Ticket issueTicket(int gateId,
                               String vehicleNumber,
                               String OwnerName,
@@ -39,7 +41,6 @@ public class TicketServices {
             throw new IllegalArgumentException("Gate not found");
         }
         ticket.setGate(gate);
-
 
         //get the parking slot //Assign Slot
         ParkingLot parkingLot = gate.getParkingLot();
@@ -66,6 +67,7 @@ public class TicketServices {
                 vehicle=new Vehicle();
                 vehicle.setLicencePlateNumber(vehicleNumber);
                 vehicle.setOwnerName(OwnerName);
+                vehicle.setVehicleType(vehicleType);
                 vehicleRepository.saveVehicle(vehicle);
         }else{
             vehicle=optionalVehicle.get();

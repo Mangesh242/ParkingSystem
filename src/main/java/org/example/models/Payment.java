@@ -3,17 +3,17 @@ package org.example.models;
 import java.util.Date;
 
 public class Payment extends BaseModel{
-    private int amount;
+    private Float amount;
     private Date time;
-    private PaymentModes paymentModes;
+    private PaymentMode paymentMode;
     private PaymentStatus paymentStatus;
     private String refNumber;
 
-    public int getAmount() {
+    public Float getAmount() {
         return amount;
     }
 
-    public void setAmount(int amount) {
+    public void setAmount(Float amount) {
         this.amount = amount;
     }
 
@@ -25,12 +25,12 @@ public class Payment extends BaseModel{
         this.time = time;
     }
 
-    public PaymentModes getPaymentModes() {
-        return paymentModes;
+    public PaymentMode getPaymentMode() {
+        return paymentMode;
     }
 
-    public void setPaymentModes(PaymentModes paymentModes) {
-        this.paymentModes = paymentModes;
+    public void setPaymentMode(PaymentMode paymentMode) {
+        this.paymentMode = paymentMode;
     }
 
     public PaymentStatus getPaymentStatus() {

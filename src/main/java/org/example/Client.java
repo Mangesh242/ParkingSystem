@@ -1,14 +1,16 @@
 package org.example;
 
+import org.example.controllers.BillController;
 import org.example.controllers.TicketController;
-import org.example.dtos.IssueTicketRequestDTO;
-import org.example.dtos.IssueTicketResponseDTO;
+import org.example.dtos.*;
 import org.example.models.*;
 import org.example.repositories.GateRepository;
 import org.example.services.TicketServices;
 import org.example.utils.Util;
 
+import java.sql.SQLOutput;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class Client
@@ -82,7 +84,7 @@ public class Client
         Util.addGate(exitGate);
         Util.addParkingLot(parkingLot);
 
-        TicketController ticket=new TicketController(new TicketServices());
+        TicketController ticketCtrl=new TicketController(new TicketServices());
         IssueTicketRequestDTO req=new IssueTicketRequestDTO();
         req.setGateID(1);
         req.setOwnerName("Mangesh");
@@ -90,10 +92,37 @@ public class Client
         req.setVehicleType(VehicleType.TWO_WHEELER);
 
 
-        IssueTicketResponseDTO res=ticket.issueTicket(req);
-        System.out.println(res.getResponseStatus());
+        IssueTicketResponseDTO responseDTOTicket=ticketCtrl.issueTicket(req);
+        if(responseDTOTicket.getResponseStatus().equals(ResponseStatus.SUCCESS)){
+            System.out.println("Ticket : ");
+            System.out.println("Ticket Id: "+responseDTOTicket.getTicketId());
+            System.out.println("Entry Time: "+responseDTOTicket.getEntryTime());
+            System.out.println("Parking Slot: "+responseDTOTicket.getSlotNumber());
+
+        }else{
+            System.out.println("Not able to create Ticket :"+responseDTOTicket.getFailureMessage());
+        }
 
         //Generate Bill
+        int ticketId=responseDTOTicket.getTicketId();
+
+        BillRequestDTO billRequestDTO=new BillRequestDTO();
+        billRequestDTO.setTicketId(ticketId);
+        billRequestDTO.setExitGateNo("2");
+        BillController billCtrl=new BillController();
+        BillResponseDTO  responseDTO=billCtrl.generateBill(billRequestDTO);
+        if(responseDTO.getResponseStatus().equals(ResponseStatus.SUCCESS)) {
+            System.out.println("\n\n\n******Parking Bill:******");
+            System.out.println("1.Gate No : " + responseDTO.getGateNumber());
+            System.out.println("2.Amount : " + responseDTO.getAmount());
+            System.out.println("3.Vehicle Number : " + responseDTO.getVehicleNumber());
+        }else{
+            System.out.println("Fail to Generate the bill.");
+        }
+
+
+
+
 
 
 

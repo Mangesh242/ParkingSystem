@@ -27,6 +27,16 @@ public class GateRepository {
         }
         return Optional.empty();
     }
+
+    public Optional<Gate> findGateByGateNumber(String gateNo){
+       for(Integer number:gates.keySet()){
+           if(gates.get(number).getGateNumber().equalsIgnoreCase(gateNo)){
+               return Optional.of(gates.get(number));
+           }
+        }
+        return Optional.empty();
+    }
+
 }
 
 //findGateById

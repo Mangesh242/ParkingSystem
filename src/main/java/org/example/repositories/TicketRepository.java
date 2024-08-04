@@ -1,7 +1,9 @@
 package org.example.repositories;
 
+import jdk.nashorn.internal.runtime.options.Option;
 import org.example.models.Ticket;
 import java.util.Map;
+import java.util.Optional;
 import java.util.TreeMap;
 
 public class TicketRepository {
@@ -16,6 +18,12 @@ public class TicketRepository {
             instance = new TicketRepository();
         }
         return instance;
+    }
+    public Optional<Ticket> getTicket(Integer id){
+        if(tickets.containsKey(id)){
+            return Optional.of(tickets.get(id));
+        }
+        return Optional.empty();
     }
 
     public Ticket saveTicket(Ticket ticket) {

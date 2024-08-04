@@ -12,7 +12,6 @@ public class Bill extends BaseModel{
     private List<Payment> payment;
     //Total Amount= Cash 30, UPI: 20
 
-
     public Date getExitDate() {
         return exitDate;
     }

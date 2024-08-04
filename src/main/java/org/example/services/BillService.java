@@ -1,9 +1,7 @@
 package org.example.services;
 
 import org.example.models.*;
-import org.example.repositories.GateRepository;
-import org.example.repositories.TicketRepository;
-import org.example.repositories.VehicleRepository;
+import org.example.repositories.*;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -13,12 +11,14 @@ import java.util.Optional;
 public class BillService {
     private GateRepository gateRepository;
     private TicketRepository ticketRepository;
-    private VehicleRepository vehicleRepository;
+    private BillRepository billRepository;
+    private PaymentRepository paymentRepository;
 
     public BillService(){
         this.gateRepository=GateRepository.getInstance();
         this.ticketRepository=TicketRepository.getInstance();
-        this.vehicleRepository=VehicleRepository.getInstance();
+        this.billRepository= BillRepository.getInstance();
+        this.paymentRepository=PaymentRepository.getInstance();
     }
 
     public Bill generateBill(Integer ticketId,String exitGateNo){
@@ -87,14 +87,27 @@ public class BillService {
         Float billDivide=price;
         Payment payment=new Payment();
         payment.setAmount(10f);
+
         billDivide=price - 10f;
         payment.setPaymentMode(PaymentMode.CASH);
+
+
         Payment payment1=new Payment();
         payment1.setAmount(billDivide);
         payment1.setPaymentMode(PaymentMode.UPI);
+
+
         payments.add(payment);
         payments.add(payment1);
         bill.setPayment(payments);
+
+        //save the bill to repository
+        this.billRepository.saveBill(bill);
+        payment.setBill(bill);
+        payment1.setBill(bill);
+        paymentRepository.savePayment(payment);
+        paymentRepository.savePayment(payment1);
+
 
         return bill;
         //based on time and vehicleType generate bill.

@@ -8,6 +8,15 @@ public class Payment extends BaseModel{
     private PaymentMode paymentMode;
     private PaymentStatus paymentStatus;
     private String refNumber;
+    private Bill bill;
+
+    public Bill getBill() {
+        return bill;
+    }
+
+    public void setBill(Bill bill) {
+        this.bill = bill;
+    }
 
     public Float getAmount() {
         return amount;

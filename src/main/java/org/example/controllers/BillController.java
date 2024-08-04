@@ -17,7 +17,7 @@ public class BillController {
           responseDTO.setGateNumber(bill.getGate().getGateNumber());
           responseDTO.setResponseStatus(ResponseStatus.SUCCESS);
           responseDTO.setVehicleNumber(bill.getTicket().getVehicle().getLicencePlateNumber());
-
+          responseDTO.setBill(bill);
       }catch (Exception e){
           responseDTO.setResponseStatus(ResponseStatus.FAIL);
       }

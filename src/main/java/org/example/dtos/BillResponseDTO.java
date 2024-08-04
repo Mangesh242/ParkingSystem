@@ -1,13 +1,23 @@
 package org.example.dtos;
 
-public class BillResponseDTO {
-    Float amount;
-    String gateNumber;
-    Long duration;
-    String name;
-    String vehicleNumber;
-    ResponseStatus responseStatus;
+import org.example.models.Bill;
 
+public class BillResponseDTO {
+    private Float amount;
+    private String gateNumber;
+    private Long duration;
+    private String name;
+    private String vehicleNumber;
+    private ResponseStatus responseStatus;
+    private Bill bill;
+
+    public Bill getBill() {
+        return bill;
+    }
+
+    public void setBill(Bill bill) {
+        this.bill = bill;
+    }
 
     public Long getDuration() {
         return duration;

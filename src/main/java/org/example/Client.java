@@ -1,6 +1,7 @@
 package org.example;
 
 import org.example.controllers.BillController;
+import org.example.controllers.PaymentController;
 import org.example.controllers.TicketController;
 import org.example.dtos.*;
 import org.example.models.*;
@@ -116,7 +117,22 @@ public class Client
             System.out.println("1.Gate No : " + responseDTO.getGateNumber());
             System.out.println("2.Amount : " + responseDTO.getAmount());
             System.out.println("3.Vehicle Number : " + responseDTO.getVehicleNumber());
-        }else{
+
+            System.out.println("Amount received from customer is : ");
+            System.out.println("-------------------------------------");
+            PaymentController paymentController=new PaymentController();
+            PaymentRequestDTO paymentRequestDTO=new PaymentRequestDTO();
+            paymentRequestDTO.setBillId(responseDTO.getBill().getId());
+
+            List<PaymentResponseDTO> paymentsDTO=paymentController.getPayments(paymentRequestDTO);
+            for(PaymentResponseDTO payment:paymentsDTO){
+                System.out.println(payment.getPaymentMode()+" : "+payment.getAmount()+"/-");
+            }
+            System.out.println("-------------------------------------");
+            System.out.println("Total Receipt : "+responseDTO.getAmount()+"/-");
+        }
+        else
+        {
             System.out.println("Fail to Generate the bill.");
         }
 
